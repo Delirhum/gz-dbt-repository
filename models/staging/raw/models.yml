@@ -1,0 +1,33 @@
+version: 2
+models:
+  - name: stg_raw__sales
+    description: sales information with order id as pk and product id and sales infos
+    columns:
+      - name: date_date
+      - name: orders_id
+      - name: products_id
+      - name: revenue
+      - name: quantity
+    tests:
+        - unique:
+            column_name: "(products_id || ' - ' ||orders_id)"
+  - name: stg_raw__product
+    description: product information matching products id with purchase price
+    columns:
+      - name: products_id
+        description: product identifier
+        tests:
+          - unique
+          - not_null
+      - name: purchase_price
+  - name: stg_raw__ship
+    columns:
+      - name: orders_id
+        description: order identifier
+        tests:
+          - unique
+          - not_null
+      - name: shipping_fee
+      - name: shipping_fee_1
+      - name: logCost
+      - name: ship_cost
